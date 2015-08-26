@@ -135,4 +135,6 @@ $(build_prompt)%E
 	SPROMPT='zsh: correct %F{red}%R%f to %F{green}%r%f [nyae]? '
 }
 
-prompt_cylon_setup "$@"
+if [[ -z "$MC_SID" ]]; then
+	prompt_cylon_setup "$@"
+fi
