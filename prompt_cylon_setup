@@ -109,10 +109,9 @@ function prompt_cylon_setup {
 	add-zsh-hook precmd prompt_cylon_precmd
 
 	# Update prompt when entering/leaving normal mode
-	function zle-line-init zle-keymap-select {
+	function zle-keymap-select {
 		zle reset-prompt
 	}
-	zle -N zle-line-init
 	zle -N zle-keymap-select
 
 	zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
