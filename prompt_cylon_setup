@@ -52,6 +52,9 @@ function build_prompt {
 	if $git_status; then
 		prompt_segment default blue '%{%F{green}%}[%{%F{blue}%}${(e)git_info[prompt]}${git_info[status]}%{%F{green}%}]'
 	fi
+	if [ "$KEYMAP" == "vicmd" ]; then
+		prompt_segment default red "[NORMAL]"
+	fi
 	prompt_end
 }
 
@@ -104,6 +107,13 @@ function prompt_cylon_setup {
 	# Add hook for calling git-info before each command.
 	add-zsh-hook preexec prompt_cylon_preexec
 	add-zsh-hook precmd prompt_cylon_precmd
+
+	# Update prompt when entering/leaving normal mode
+	function zle-line-init zle-keymap-select {
+		zle reset-prompt
+	}
+	zle -N zle-line-init
+	zle -N zle-keymap-select
 
 	zstyle ':prezto:module:editor:info:completing' format '%B%F{red}...%f%b'
 	if [[ $UID -ne 0 ]]; then
